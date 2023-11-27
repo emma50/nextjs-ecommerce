@@ -1,0 +1,30 @@
+.home {
+  min-height: 100vh;
+  background: $grey-color;
+  &__fashion {
+    background: #fff;
+    padding: 1rem;
+  }
+  /* &__fashion + &__fashion {
+    margin-top: 1rem;
+  } */
+  &__category {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    @media (max-width: 850px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 550px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  .products { 
+    margin-top: 2rem;
+    border-top: 2px solid #222;
+    padding-top: .8rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
