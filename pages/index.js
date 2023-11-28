@@ -103,7 +103,8 @@ export async function getServerSideProps() {
   let error;
   let products;
   try {
-    products = await axios.get('https://fakestoreapi.com/products')
+    const productsRes = await axios.get('https://fakestoreapi.com/products')
+    products = productsRes.data
     console.log(products, 'FAKERPRODUCTS------------------->')
     const res = await axios.get(`https://api.ipregistry.co/?key=${process.env.IPREGISTRY_API_KEY}`)
     data = res.data.location.country
@@ -138,7 +139,7 @@ export async function getServerSideProps() {
         flag: JSON.stringify('/images/country__flag.jpg'),
         code: JSON.stringify('NGN'),
       },
-      products: products.data
+      products
     }
   }
 }
