@@ -36,8 +36,9 @@ export default function Home({ country }) {
   useEffect(() => {
     try {
       const getProducts = async () => {
-        const products = await fetchProducts()
-        setProducts(products)
+        // const products = await fetchProducts()
+        const products = await axios.get('/api/product')
+        setProducts(products.data.products)
       }
   
       getProducts()
