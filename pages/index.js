@@ -2,7 +2,7 @@ import { Inter } from '@next/font/google'
 import { useSession, signIn, signOut } from "next-auth/react"
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLayoutEffect, useEffect } from 'react'
+import { useLayoutEffect, useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Header from '../components/header'
 import Footer from '../components/footer'
@@ -24,13 +24,32 @@ import { createProduct } from '../store/productSlice'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ country, products }) {
+export default function Home({ country }) {
   // const product = useSelector((state) => state.product.product)
-  console.log(products, 'PRODUCTSS-------------------------->')
   const dispatch = useDispatch()
+  const [products, setProducts] = useState([])
+  console.log(products, 'PRODUCTSS-------------------------->')
 
   const isMedium = useMediaQuery({ query: '(max-width: 850px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 550px)' })
+
+  useEffect(() => {
+    try {
+      const getProducts = async () => {
+        const products = await fetchProducts()
+        setProducts(products)
+      }
+  
+      getProducts()
+    } catch (e) {
+      console.log(e)
+    }
+  }, [])
+
+  const fetchProducts = async () => {
+    const productsRes = await axios.get('https://fakestoreapi.com/products')
+    return productsRes.data
+  }
 
   return <>
     <Header country={country} />
@@ -101,11 +120,7 @@ export default function Home({ country, products }) {
 export async function getServerSideProps() {
   let data;
   let error;
-  let products;
   try {
-    const productsRes = await axios.get('https://fakestoreapi.com/products')
-    products = productsRes.data
-    console.log(products, 'FAKERPRODUCTS------------------->')
     const res = await axios.get(`https://api.ipregistry.co/?key=${process.env.IPREGISTRY_API_KEY}`)
     data = res.data.location.country
   } catch(err) { 
@@ -128,18 +143,11 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      // country: {
-      //   name: JSON.parse(JSON.stringify(data.name)),
-      //   flag: JSON.parse(JSON.stringify(data.flag.emojitwo)),
-      //   code: JSON.parse(JSON.stringify(data.code))
-      // },
-      // products: JSON.stringify(products.data)
       country: {
-        name: JSON.stringify('Nigeria'),
-        flag: JSON.stringify('/images/country__flag.jpg'),
-        code: JSON.stringify('NGN'),
-      },
-      products
+        name: JSON.parse(JSON.stringify(data.name)),
+        flag: JSON.parse(JSON.stringify(data.flag.emojitwo)),
+        code: JSON.parse(JSON.stringify(data.code))
+      }
     }
   }
 }
