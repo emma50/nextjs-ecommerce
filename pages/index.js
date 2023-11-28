@@ -82,18 +82,9 @@ export default function Home({ country, products }) {
           header={'Home Improvements'}
           background={'#5a31f4'}
         />
-        {/* <div className={styles.products}>
-          {
-            products.map((product, index) => {
-              return (
-                <ProductCard key={index} product={product}/>
-              )
-            })
-          }
-        </div> */}
         <div className={styles.products}>
           {
-            products.length > 0 && products.map((product) => {
+            products && products.length > 0 && products.map((product) => {
               return (
                 <ProductCard key={product.id} product={product}/>
               )
@@ -108,12 +99,12 @@ export default function Home({ country, products }) {
 }
 
 export async function getServerSideProps() {
-  const products = await axios.get('https://fakestoreapi.com/products')
-  console.log(products, 'FAKERPRODUCTS------------------->')
-
   let data;
   let error;
+  let products;
   try {
+    products = await axios.get('https://fakestoreapi.com/products')
+    console.log(products, 'FAKERPRODUCTS------------------->')
     const res = await axios.get(`https://api.ipregistry.co/?key=${process.env.IPREGISTRY_API_KEY}`)
     data = res.data.location.country
   } catch(err) { 
@@ -128,19 +119,25 @@ export async function getServerSideProps() {
           name: JSON.stringify('Nigeria'),
           flag: JSON.stringify('/images/country__flag.jpg'),
           code: JSON.stringify('NGN'),
-        }
+        },
+        products: {}
       }
     }
   }
 
   return {
     props: {
-      country: {
-        name: JSON.parse(JSON.stringify(data.name)),
-        flag: JSON.parse(JSON.stringify(data.flag.emojitwo)),
-        code: JSON.parse(JSON.stringify(data.code))
-      },
+      // country: {
+      //   name: JSON.parse(JSON.stringify(data.name)),
+      //   flag: JSON.parse(JSON.stringify(data.flag.emojitwo)),
+      //   code: JSON.parse(JSON.stringify(data.code))
+      // },
       // products: JSON.stringify(products.data)
+      country: {
+        name: JSON.stringify('Nigeria'),
+        flag: JSON.stringify('/images/country__flag.jpg'),
+        code: JSON.stringify('NGN'),
+      },
       products: products.data
     }
   }
