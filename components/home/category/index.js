@@ -1,9 +1,9 @@
 import { BsArrowRightCircle } from 'react-icons/bs'
 import { useMediaQuery } from 'react-responsive'
-// import Image from 'next/image'
+import { memo } from 'react'
 import styles from './category.module.scss'
 
-export default function Category({ header, products, background }) {
+const Category = memo(function Category({ header, products, background }) {
   const isMedium = useMediaQuery({ query: '(max-width: 1200px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 550px)' })
   return (
@@ -21,10 +21,6 @@ export default function Category({ header, products, background }) {
                   src={product.image}
                   alt="product image"
                 />
-                {/* <Image 
-                  src={product.image} 
-                  alt='product image'
-                /> */}
               </div>
             )
           })
@@ -32,4 +28,6 @@ export default function Category({ header, products, background }) {
       </div>
     </div>
   )
-}
+})
+
+export default Category

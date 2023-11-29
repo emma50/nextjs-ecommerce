@@ -1,7 +1,7 @@
-// import Image from 'next/image'
+import { memo } from 'react'
 import styles from './products.module.scss'
 
-export default function Products({ cart }) {
+const Products = memo(function Products({ cart }) {
   return (
     <div className={styles.products}>
       <div className={styles.products__header}>
@@ -20,11 +20,8 @@ export default function Products({ cart }) {
             <div className={styles.product} key={index}>
               <div className={styles.product__img}>
                 <img src={product.image} alt="" />
-                {/* <Image src={product.image} alt=''/> */}
                 <div className={styles.product__info}>
                   <img src={product.image} alt="" />
-                  {/* <Image src={product.color.image} alt=''/> */}
-                  {/* <span>{product.size}</span> */}
                   <span>x{product.quantity}</span>
                 </div>
               </div>
@@ -47,4 +44,6 @@ export default function Products({ cart }) {
       </div>
     </div>
   )
-}
+})
+
+export default Products

@@ -1,6 +1,4 @@
 import { Rating } from '@mui/material'
-import Link from 'next/link'
-// import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { BsHandbagFill, BsHeart } from 'react-icons/bs'
@@ -17,15 +15,11 @@ import DialogModal from "../../dialogModal"
 import { showDialog } from '../../../store/dialogSlice'
 
 export default function Info({ product }) {
-  console.log(product, 'INFOPRODUCTPAGE--------------------------->')
-
   const router = useRouter()
   const dispatch = useDispatch()
-  const [size, setSize] = useState(router.query.size)
   const [qty, setQty] = useState(1)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState("");
-  
 
   const cart = useSelector((state) => state.cart)
   const user = useSelector((state) => state.user.user)
@@ -40,15 +34,13 @@ export default function Info({ product }) {
     )
 
     if (!data) {
-      // setError('Product does not exist')
       dispatch(showDialog({
         header: 'Error',
         msgs: 'Product does not exist'
       }))
     }
-    console.log(data, 'DATA-------------------->')
+  
     let id = `${data.id}`
-    console.log(cart, 'CART--------------------->')
     let exist = cart.cartItems.products && cart.cartItems.products.find((item) => item.productId === id)
 
     const currentDate = new Date();
@@ -82,26 +74,12 @@ export default function Info({ product }) {
           id: (await updatedCart).data.id
         }))
       }
-
-      // let newCart = cart.cartItems.products.map((item) => {
-      //   if (item.productId === exist.id) {
-      //     return {...item, quantity: qty}
-      //   }
-      //   return item;
-      // })
       
       dispatch(showDialog({
         header: 'Success',
         msgs: 'You have successfully updated the cart'
       }))
-      // dispatch(updateCart({
-      //   ...cart.cartItems,
-      //   id: updatedCart.data.id,
-      //   products: [
-      //     ...cart.cartItems.products,
-      //     newCart
-      //   ]
-      // }))
+    
       setTimeout(() => router.push('/cart'), 2000)
     }
     else {
@@ -117,8 +95,6 @@ export default function Info({ product }) {
           ]
         }
       })
-
-      console.log(res, 'RES---------------->')
 
       dispatch(addToCart({
         cartId: res.data.id,
@@ -170,7 +146,7 @@ export default function Info({ product }) {
         </div>
         {' '}
         <span>
-          {product.quantity || 1}{' '}pieces available.
+          {product.quantity}{' '}pieces available.
         </span>
         <div className={styles.info__qty}>
           <button

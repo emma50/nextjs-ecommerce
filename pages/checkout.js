@@ -10,8 +10,6 @@ import Summary from '../components/checkout/summary'
 export default function Checkout() {
   const cart = useSelector((state) => state.cart)
   const [paymentMethod, setPaymentMethod] = useState('')
-  const [totalAfterDiscount, setTotalAfterDiscount] = useState('')
-  const [selectedAddress, setSelectedAddress] = useState('')
 
   return (
     <>
@@ -26,12 +24,7 @@ export default function Checkout() {
             setPaymentMethod={setPaymentMethod}
           />
           <Summary
-            totalAfterDiscount={totalAfterDiscount}
-            setTotalAfterDiscount={setTotalAfterDiscount}
-            user={user || ''}
             cart={cart.cartItems.products}
-            paymentMethod={paymentMethod}
-            selectedAddress={selectedAddress || ''}
           />
         </div>
       </div>

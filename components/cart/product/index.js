@@ -1,14 +1,13 @@
 import { BsHeart } from 'react-icons/bs'
 import { AiOutlineDelete } from 'react-icons/ai'
+import { memo } from 'react'
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react' 
-// import Image from 'next/image'
 import { updateCart } from '../../../store/cartSlice'
 import styles from './product.module.scss'
 
-export default function Product({ product, selected, setSelected }) {
-  console.log(product, 'COMPONENTCARTPRODUCT-------------------->')
+const Product = memo(function Product({ product, selected, setSelected }) {
   const cart = useSelector((state) => state.cart)
   const [active, setActive] = useState(false)
   const dispatch = useDispatch()
@@ -43,7 +42,6 @@ export default function Product({ product, selected, setSelected }) {
     }))
   }
 
-  console.log('SELECTED', selected)
   const handleSelect = () => {
     if (active) {
       setSelected(selected.filter((item) => item.id !== product.id))
@@ -58,7 +56,6 @@ export default function Product({ product, selected, setSelected }) {
       {product.quantity < 1 && <div className={styles.blur}></div>}
       <div className={styles.product__header}>
         <img src={'/images/store.webp'} alt="" />
-        {/* <Image src={'/images/store.webp'} alt=''/> */}
         EMMANUELS OFFICIAL STORE
       </div>
       <div className={styles.product__image}>
@@ -71,7 +68,6 @@ export default function Product({ product, selected, setSelected }) {
         <div className={styles.col}>
           <div className={styles.grid}>
             <h1>
-              {/* {console.log(product.title.length, 'PRODUCT------------------TITLE---->')} */}
               {
                 product.title && product.title.length > 30 
                 ? `${product.title.slice(0, 30)}...`
@@ -127,4 +123,6 @@ export default function Product({ product, selected, setSelected }) {
       </div>
     </div>
   )
-}
+})
+
+export default Product

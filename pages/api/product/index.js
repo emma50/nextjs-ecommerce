@@ -14,6 +14,9 @@ const handler = nc({
 handler.get(async (req, res) => {
   try {
     const products = await axios.get('https://fakestoreapi.com/products')
+
+    products.data.forEach((product, index) => product.quantity = index + 1)
+
     return res.status(200).json({ products: products.data })
   } catch(e) {
     return res.status(500).json({ message: e.message })

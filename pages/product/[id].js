@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useState } from 'react'
+import { memo } from 'react'
 import axios from 'axios'
 import styles from '../../styles/product.module.scss'
 import Header from '../../components/header'
@@ -8,8 +8,7 @@ import MainSwiper from '../../components/productPage/mainSwiper'
 import Info from '../../components/productPage/info'
 import Reviews from '../../components/productPage/reviews'
 
-export default function Product({ product }) {
-  console.log(product, 'PRODUCTS-------------------->')
+const Product = memo(function Product({ product }) {
   return (
     <>
       <Head>
@@ -32,21 +31,21 @@ export default function Product({ product }) {
       <Footer country=''/>
     </>
   )
-}
+})
+
+export default Product
 
 export async function getServerSideProps(context) { 
   const { query } = context
-  console.log(query, 'QUERY------------------------->')
   
   let id = query.id
 
   const product = await axios.get(`https://fakestoreapi.com/products/${id}`)
-  // console.log(id, 'ID----------------------------->')
-  console.log('PROSSSSSSSSSSSSSSSSSSSS',product.data, 'PRODUCT------------------------------->')
+
+  product.data.quantity = Number(id) 
 
   return {
     props: {
-      // product: JSON.parse(JSON.stringify(product.data))
       product: product.data
     }
   }

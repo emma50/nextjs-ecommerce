@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import styles from './cartHeader.module.scss'
 import { compareArrays } from '../../../utils/arraysUtils'
 
-export default function CartHeader({ cartItems, selected, setSelected }) {
+const CartHeader = memo(function CartHeader({ cartItems, selected, setSelected }) {
   const [active, setActive] = useState(false)
-  console.log('1:-->', cartItems, '2:-->', selected, '3:-->', setSelected, 'CARTHEADER------------------->')
+
   useEffect(() => {
-    /* let check = JSON.stringify(cartItems) === JSON.stringify(selected) */
     let check = compareArrays(cartItems.products, selected)
     setActive(check)
   }, [selected])
@@ -32,4 +31,6 @@ export default function CartHeader({ cartItems, selected, setSelected }) {
       </div>
     </div>
   )
-}
+})
+
+export default CartHeader

@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { HiOutlineClipboard } from 'react-icons/hi'
 import { AiOutlineMessage } from 'react-icons/ai'
@@ -49,8 +48,6 @@ export function UserMenuSwiper() {
 
 // -------------------------------------------------------
 export default function User() {
-  const { data: session } = useSession()
-  // console.log(session, 'SESSION')
   return (
     <div className={styles.user}>
       <img 
@@ -59,24 +56,14 @@ export default function User() {
         className={styles.user__header}
       />
       <div className={styles.user__container}>
-        {
-          session ? (
-            <div className={styles.user__info}>
-              <img src={session.user?.image} alt='User image'/>
-              {/* <Image src={session.user?.image} alt='User image'/> */}
-              <h4>{session.user?.name}</h4>
-            </div>
-          ) : (
-            <div className={styles.user__info}>
-              <img src={'./images/human.jpeg'} alt='User image'/>
-              {/* <Image src={'/images/human.jpeg'} alt='User image'/> */}
-              <div className={styles.user__info_btns}>
-                <button>Register</button>
-                <button>Login</button>
-              </div>
-            </div>
-          )
-        }
+        <div className={styles.user__info}>
+          <img src={'./images/human.jpeg'} alt='User image'/>
+          {/* <Image src={'/images/human.jpeg'} alt='User image'/> */}
+          <div className={styles.user__info_btns}>
+            <button>Register</button>
+            <button>Login</button>
+          </div>
+        </div>
         <ul className={styles.user__link}>
           <li>
             <Link href={''} legacyBehavior>

@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { MdPlayArrow } from 'react-icons/md'
 import styles from './header.module.scss'
 

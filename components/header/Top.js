@@ -4,14 +4,11 @@ import { MdSecurity } from 'react-icons/md'
 import { BsSuitHeart} from 'react-icons/bs'
 import { RiAccountPinCircleLine, RiArrowDropDownFill } from 'react-icons/ri'
 import { useState } from 'react'
-import { useSession } from 'next-auth/react'
 import styles from './header.module.scss'
 import UserMenu from './UserMenu'
 
 export default function Top({ country }) {
-  const { data: session } = useSession()
   const [visible, setVisible] = useState(false)
-  // console.log(session, 'SESSION')
   
   const flag = '/images/country__flag.jpg'
   return (
@@ -43,19 +40,7 @@ export default function Top({ country }) {
             onMouseOver={() => setVisible(true)}
             onMouseLeave={() => setVisible(false)}
           >
-            {session ? 
-              <div className={styles.flex}>
-                <Image src={session.user.image} alt="your image" width={28} height={28}/>
-                <span>{session.user.name}</span>
-                <RiArrowDropDownFill/>
-              </div> : 
-              <div className={styles.flex}>
-                <RiAccountPinCircleLine/>
-                <span>Account</span>
-                <RiArrowDropDownFill/>
-              </div>
-            }
-            {visible && <UserMenu session={session}/>}
+            {visible && <UserMenu/>}
           </li>
         </ul>
       </div>

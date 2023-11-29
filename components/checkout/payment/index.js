@@ -1,8 +1,8 @@
-// import Image from 'next/image'
+import { memo } from 'react'
 import styles from './payment.module.scss'
 import { paymentMethods } from '../../../data/paymentMethods'
 
-export default function Payment({ paymentMethod, setPaymentMethod, profile }) {
+const Payment = memo(function Payment({ paymentMethod, setPaymentMethod, profile }) {
   return (
     <div className={styles.payment}>
       {!profile &&
@@ -32,10 +32,6 @@ export default function Payment({ paymentMethod, setPaymentMethod, profile }) {
               src={`/images/checkout/${payment.id}.webp`}
               alt={payment.name} 
             />
-            {/* <Image 
-              src={`/images/checkout/${payment.id}.webp`} 
-              alt={payment.name}
-            /> */}
             <div className={styles.payment__item_col}>
               <span>Pay with {payment.name}</span>
               <p>
@@ -47,11 +43,6 @@ export default function Payment({ paymentMethod, setPaymentMethod, profile }) {
                       alt="" 
                       key={index}
                     />
-                    // <Image
-                    //   src={`/images/payment/${img}.webp`}
-                    //   alt=''
-                    //   key={index}
-                    // />
                   ))
                   : payment.description
                 }
@@ -62,4 +53,6 @@ export default function Payment({ paymentMethod, setPaymentMethod, profile }) {
       }
     </div>
   )
-}
+})
+
+export default Payment

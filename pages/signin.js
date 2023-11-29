@@ -40,7 +40,6 @@ const country = {
 export default function Signin() {
   const [loading, setLoading] = useState(false)
   const user = useSelector((state) => state.user.user)
-  console.log(user, 'USER---------------------------->')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const dispatch = useDispatch()
@@ -48,8 +47,6 @@ export default function Signin() {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    console.log(name, value, 'NAMEANDVALUE--------------------->')
-    console.log(user.name)
 
     if ((name === 'firstname') || (name === 'lastname')) {
       dispatch(createUser({
@@ -113,7 +110,7 @@ export default function Signin() {
         },
         phone: user.phone
       })
-      console.log(data, 'DATA------------------->')
+    
       if (data) {
         setError('')
         setSuccess(data.message)
@@ -261,28 +258,3 @@ export default function Signin() {
     </>
   )
 }
-
-
-// export async function getServerSideProps (context) {
-//   const { req, query } = context
-//   const { callbackUrl } = query
-//   const session = await getSession({ req })
-//   const csrfToken = await getCsrfToken(context)
-//   const providers = Object.values(await getProviders())
-
-//   if (session) {
-//     return {
-//       redirect: {
-//         destination: callbackUrl
-//       }
-//     }
-//   }
-
-//   return {
-//     props: {
-//       providers,
-//       csrfToken,
-//       callbackUrl
-//     }
-//   }
-// }

@@ -1,9 +1,10 @@
+import { memo } from 'react'
 import styles from './header.module.scss'
 import Ad from './Ad'
 import Top from './Top'
 import Main from './Main'
 
-export default function Header({country, searchHandler}) {
+const Header = memo(function Header({country, searchHandler}) {
   return (
     <header className={styles.header}>
       <Ad/>
@@ -11,4 +12,6 @@ export default function Header({country, searchHandler}) {
       <Main searchHandler={searchHandler}/>
     </header>
   )
-}
+})
+
+export default Header

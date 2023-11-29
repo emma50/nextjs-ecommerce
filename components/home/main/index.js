@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import styles from './main.module.scss'
 import MainSwiper from './swiper'
 import Offers from './offers'
@@ -5,7 +6,7 @@ import Menu from './menu'
 import User from './user'
 import Header from './header'
 
-export default function Main() {
+const Main = memo(function Main() {
   return (
     <div className={styles.main}>
       <Header/>
@@ -15,4 +16,6 @@ export default function Main() {
       <User/>
     </div>
   )
-}
+})
+
+export default Main

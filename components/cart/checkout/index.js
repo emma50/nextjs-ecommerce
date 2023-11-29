@@ -1,23 +1,19 @@
+import { memo } from 'react'
 import styles from './checkout.module.scss'
 
-export default function Checkout({
+const Checkout = memo(function Checkout({
   subTotal,
   shippingFee,
   total,
   selected,
   saveCartToDBHandler
 }) {
-  console.log(subTotal, 1,
-    shippingFee, 2,
-    total, 3,
-    selected, 4,
-    saveCartToDBHandler, 5, 'QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ--------------->')
   return (
     <div className={`${styles.cart__checkout} ${styles.card}`}>
       <h2>Order Summary</h2>
       <div className={styles.cart__checkout_line}>
         <span>SubTotal</span>
-        <span>USD${subTotal}</span>
+        <span>USD${subTotal.toFixed(2)}</span>
       </div>
       <div className={styles.cart__checkout_line}>
         <span>Shipping Fee</span>
@@ -25,7 +21,7 @@ export default function Checkout({
       </div>
       <div className={styles.cart__checkout_total}>
         <span>Total</span>
-        <span>USD{total}$</span>
+        <span>USD{total.toFixed(2)}$</span>
       </div>
       <div className={styles.submit}>
         <button
@@ -41,4 +37,6 @@ export default function Checkout({
       </div>
     </div>
   )
-}
+})
+
+export default Checkout

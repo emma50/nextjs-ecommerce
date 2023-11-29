@@ -1,4 +1,5 @@
 import { MdFlashOn } from 'react-icons/md'
+import { memo } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -54,7 +55,7 @@ export function FlashDealsSwiper() {
   );
 }
 
-export default function FlashDeals() {
+const FlashDeals = memo(function FlashDeals() {
   return (
     <div className={styles.flashDeals}>
       <div className={styles.flashDeals__header}>
@@ -64,4 +65,6 @@ export default function FlashDeals() {
       <FlashDealsSwiper/>
     </div>
   )
-}
+})
+
+export default FlashDeals

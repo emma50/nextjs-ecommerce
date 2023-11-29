@@ -1,8 +1,7 @@
 import { Inter } from '@next/font/google'
-import { useSession, signIn, signOut } from "next-auth/react"
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLayoutEffect, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Header from '../components/header'
 import Footer from '../components/footer'
@@ -25,10 +24,8 @@ import { createProduct } from '../store/productSlice'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ country }) {
-  // const product = useSelector((state) => state.product.product)
+  const products = useSelector((state) => state.product.product)
   const dispatch = useDispatch()
-  const [products, setProducts] = useState([])
-  console.log(products, 'PRODUCTSS-------------------------->')
 
   const isMedium = useMediaQuery({ query: '(max-width: 850px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 550px)' })
@@ -36,9 +33,8 @@ export default function Home({ country }) {
   useEffect(() => {
     try {
       const getProducts = async () => {
-        // const products = await fetchProducts()
         const products = await axios.get('/api/product')
-        setProducts(products.data.products)
+        dispatch(createProduct(products.data.products))
       }
   
       getProducts()
@@ -46,11 +42,6 @@ export default function Home({ country }) {
       console.log(e)
     }
   }, [])
-
-  const fetchProducts = async () => {
-    const productsRes = await axios.get('https://fakestoreapi.com/products')
-    return productsRes.data
-  }
 
   return <>
     <Header country={country} />
@@ -111,7 +102,6 @@ export default function Home({ country }) {
             })
           }
         </div>
-        WHAT IS IT
       </div>
     </div>
     <Footer country={country} />
@@ -136,8 +126,7 @@ export async function getServerSideProps() {
           name: JSON.stringify('Nigeria'),
           flag: JSON.stringify('/images/country__flag.jpg'),
           code: JSON.stringify('NGN'),
-        },
-        products: {}
+        }
       }
     }
   }

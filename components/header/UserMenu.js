@@ -1,44 +1,20 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import { signOut, signIn } from 'next-auth/react'
 import styles from './header.module.scss'
 
-export default function UserMenu({session}) {
+export default function UserMenu() {
   return (
     <div className={styles.menu} style={{zIndex: '99999'}}>
       <h4>Welcome to Shopps!</h4>
-      {session ? 
-        <div className={styles.flex}>
-          <Image
-            src={session.user.image}
-            alt="your image"
-            width={100}
-            height={100}
-            className={styles.menu__img}
-          />
-          <div className={styles.col}>
-            <span>Welcome back,</span>
-            <h3>Emmanuel</h3>
-            <span onClick={() => signOut()}>Signout</span>
-          </div>
-        </div> :
-        <div className={styles.flex}>
-          <button className={styles.btn_primary}>Register</button>
-          <button
-            className={styles.btn_outlined}
-            onClick={async() => await signIn()}
-          >
-            Login
-          </button>
-        </div>
-      }
+      <div className={styles.flex}>
+        <button className={styles.btn_primary}>Register</button>
+        <button
+          className={styles.btn_outlined}
+          onClick={() => console.log('Clicked')}
+        >
+          Login
+        </button>
+      </div>
       <ul>
-        {
-          session?.user?.role === 'admin' &&
-          <li>
-            <Link href={'admin/dashboard'}> Admin dashboard</Link>
-          </li>
-        }
         <li>
           <Link href={'profile'}>Account</Link>
         </li>

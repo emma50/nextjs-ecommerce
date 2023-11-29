@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react'
+import { memo } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import styles from './productCard.module.scss'
 import ProductSwiper from './ProductSwiper'
 
-export default function ProductCard({ product }) {
-  console.log(product, 'PRODUCTCARD------------------------->')
+const ProductCard = memo(function ProductCard({ product }) {
   return (
     <div className={styles.product}>
       <div className={styles.product__container}>
@@ -33,4 +31,6 @@ export default function ProductCard({ product }) {
       </div>
     </div>
   )
-}
+})
+
+export default ProductCard

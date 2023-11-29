@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { memo } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // import Image from 'next/image'
@@ -14,7 +14,7 @@ import { IoGameController } from 'react-icons/io5'
 import { IoHomeSharp } from 'react-icons/io5'
 import styles from './productsSwiper.module.scss'
 
-export default function ProductsSwiper({ header, products, background }) {
+const ProductsSwiper = memo(function ProductsSwiper({ header, products, background }) {
   return (
     <div className={styles.wrapper}>
       {
@@ -84,5 +84,6 @@ export default function ProductsSwiper({ header, products, background }) {
       </Swiper>
     </div>
   )
-}
+})
 
+export default ProductsSwiper
