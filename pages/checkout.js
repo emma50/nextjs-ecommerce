@@ -1,4 +1,3 @@
-// import { getSession } from 'next-auth/react'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import styles from '../styles/checkout.module.scss' 

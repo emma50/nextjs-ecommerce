@@ -86,7 +86,6 @@ export default function AddReview({ product, setReviews }) {
         });
 
         uploaded_images = await uploadImages(formData);
-        console.log('UPLOADED--->', uploaded_images)
       }
 
       const { data } = await axios.put(`/api/product/${product._id}/review`, {
